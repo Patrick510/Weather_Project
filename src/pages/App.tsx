@@ -14,13 +14,13 @@ import notFound from "@/assets/404.png";
 
 import axios from "axios";
 import { useState } from "react";
-import { Search } from "lucide-react";
+import { MapPin, Search } from "lucide-react";
 
 const url = "https://viacep.com.br/ws/79630762/json/";
 
 export default function App() {
   const [cep, setCep] = useState<any>(null);
-  const [city, setCity] = useState<string>("");
+  const [city, setCity] = useState<string>("Três Lagoas");
 
   async function getCEP() {
     await axios
@@ -62,10 +62,11 @@ export default function App() {
         </CardFooter>
       </Card>
 
-      <Card className="hidden">
+      <Card className="w-[400px]">
         <CardHeader>
-          <CardTitle></CardTitle>
-          <CardDescription></CardDescription>
+          <CardTitle className="text-center uppercase flex items-center justify-center gap-2">
+            <MapPin></MapPin> {city}
+          </CardTitle>
         </CardHeader>
 
         <CardContent>
