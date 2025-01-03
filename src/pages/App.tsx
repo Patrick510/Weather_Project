@@ -58,7 +58,9 @@ export default function App() {
         </CardFooter>
       </Card>
 
-      <Card className="hidden"></Card>
+      <Card className="hidden">
+        <CardHeader></CardHeader>
+      </Card>
     </div>
   );
 }
