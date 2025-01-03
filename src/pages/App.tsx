@@ -10,9 +10,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import notFound from "@/assets/404.png";
 
 import axios from "axios";
 import { useState } from "react";
+import { Search } from "lucide-react";
 
 const url = "https://viacep.com.br/ws/79630762/json/";
 
@@ -33,8 +35,8 @@ export default function App() {
   }
 
   return (
-    <div className="p-4">
-      <Card>
+    <div className="p-4 flex flex-col gap-4 items-center">
+      <Card className="w-[400px]">
         <CardHeader>
           <CardTitle>Weather</CardTitle>
           <CardDescription>
@@ -54,12 +56,34 @@ export default function App() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <DialogCEP></DialogCEP>
-          <Button>Send</Button>
+          <Button>
+            <Search></Search>
+          </Button>
         </CardFooter>
       </Card>
 
       <Card className="hidden">
-        <CardHeader></CardHeader>
+        <CardHeader>
+          <CardTitle></CardTitle>
+          <CardDescription></CardDescription>
+        </CardHeader>
+
+        <CardContent>
+          <div className="hidden" id="not-found">
+            <img src={notFound} alt="404" />
+            <p>Ooops! Invalid Location</p>
+          </div>
+
+          <div id="weather-box">
+            <img src="" alt="preview" id="imagem" />
+            <p id="temperature">°</p>
+            <p id="description">aaaa</p>
+          </div>
+
+          <div id="weather-details">
+            <div id="humidity"></div>
+          </div>
+        </CardContent>
       </Card>
     </div>
   );
