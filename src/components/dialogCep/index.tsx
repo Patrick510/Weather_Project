@@ -11,8 +11,25 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useState } from "react";
+import { getCep } from "../hooks/getCep";
 
 export default function DialogCEP() {
+  const [cep, setCep] = useState<string>("");
+  const [cepData, setCepData] = useState<any>(null);
+  const [error, setError] = useState<string>("");
+
+  const handleSearchCep = async () => {
+    setError("");
+    try {
+      const data = await getCep({ cep });
+      setCepData(data);
+      console.log(data);
+    } catch (err) {
+      setError("CEP não encontrado ou erro na busca");
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -20,7 +37,7 @@ export default function DialogCEP() {
           variant="outline"
           className="border-blue-300 text-blue-600 hover:bg-blue-50"
         >
-          Insira o CEP
+          Use CEP
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white">
@@ -42,11 +59,17 @@ export default function DialogCEP() {
               id="cep"
               placeholder="00000-000"
               className="col-span-3 text-gray-800 border-blue-200 focus:border-blue-400"
+              onChange={(e) => setCep(e.target.value)}
+              value={cep}
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" className="bg-blue-500 hover:bg-blue-600">
+          <Button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-600"
+            onClick={handleSearchCep}
+          >
             <Search className="mr-2 h-4 w-4" /> Search CEP
           </Button>
         </DialogFooter>

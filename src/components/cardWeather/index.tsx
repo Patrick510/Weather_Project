@@ -5,13 +5,11 @@ import notFound from "@/assets/404.png";
 import cloud from "@/assets/cloud.png";
 
 interface CardWeatherProps {
-  city: string;
   weatherData: any;
   showCard: boolean;
 }
 
 export default function CardWeather({
-  city,
   weatherData,
   showCard,
 }: CardWeatherProps) {
