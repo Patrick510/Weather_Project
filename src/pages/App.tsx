@@ -47,6 +47,7 @@ export default function App() {
       const data = await getWeather({ city });
       setWeatherData(data);
       setShowWeatherCard(true);
+      console.log(data);
     } catch (error) {
       console.error("Erro ao obter previsão do tempo:", error);
     }

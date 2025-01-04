@@ -1,6 +1,6 @@
 import { MapPin, Sun, Thermometer, Waves, Wind } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import notFound from "@/assets/404.png";
 import cloud from "@/assets/cloud.png";
 
@@ -16,6 +16,7 @@ export default function CardWeather({
   showCard,
 }: CardWeatherProps) {
   const weatherCardRef = useRef<HTMLDivElement>(null);
+  const [animationCounter, setAnimationCounter] = useState(0);
 
   useEffect(() => {
     if (showCard && weatherCardRef.current) {
@@ -25,6 +26,28 @@ export default function CardWeather({
       return () => clearTimeout(timer);
     }
   }, [showCard]);
+
+  useEffect(() => {
+    if (showCard && weatherCardRef.current) {
+      const timer = setTimeout(() => {
+        weatherCardRef.current?.classList.remove("hidden");
+        setAnimationCounter(1);
+      }, 50);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showCard]);
+
+  useEffect(() => {
+    if (animationCounter === 1 && weatherCardRef.current) {
+      const timer = setTimeout(() => {
+        weatherCardRef.current!.style.height = "510px";
+        setAnimationCounter(2);
+      }, 50);
+
+      return () => clearTimeout(timer);
+    }
+  }, [animationCounter]);
 
   return (
     <Card
@@ -36,7 +59,7 @@ export default function CardWeather({
     >
       <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
         <CardTitle className="text-3xl font-bold flex items-center justify-center gap-2">
-          <MapPin className="h-8 w-8" /> {city}
+          <MapPin className="h-8 w-8" /> {weatherData?.name}
         </CardTitle>
         <p className="text-center text-blue-100 mt-2">Current Weather</p>
       </CardHeader>
