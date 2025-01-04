@@ -14,7 +14,11 @@ import { Label } from "../ui/label";
 import { useState } from "react";
 import { getCep } from "../hooks/getCep";
 
-export default function DialogCEP() {
+interface DialogCEPProps {
+  setCidadeCep: any;
+}
+
+export default function DialogCEP({ setCidadeCep }: DialogCEPProps) {
   const [cep, setCep] = useState<string>("");
   const [cepData, setCepData] = useState<any>(null);
   const [error, setError] = useState<string>("");
@@ -24,7 +28,7 @@ export default function DialogCEP() {
     try {
       const data = await getCep({ cep });
       setCepData(data);
-      console.log(data);
+      setCidadeCep(data.localidade);
     } catch (err) {
       setError("CEP não encontrado ou erro na busca");
     }

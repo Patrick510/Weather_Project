@@ -17,7 +17,7 @@ import { getWeather } from "@/components/hooks/getWeather";
 import CardWeather from "@/components/cardWeather";
 
 export default function App() {
-  const [cep, setCep] = useState<any>(null);
+  const [cidadeCep, setcidadeCep] = useState<any>(null);
   const [city, setCity] = useState<string>("");
   const [weatherData, setWeatherData] = useState<any>(null);
   const [showWeatherCard, setShowWeatherCard] = useState(false);
@@ -29,7 +29,8 @@ export default function App() {
   const handleSearch = async () => {
     setShowWeatherCard(false);
     try {
-      const data = await getWeather({ city });
+      const searchCity = city || cidadeCep;
+      const data = await getWeather({ city: searchCity });
       setWeatherData(data);
       setShowWeatherCard(true);
     } catch (error) {
@@ -68,7 +69,7 @@ export default function App() {
           </form>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <DialogCEP />
+          <DialogCEP setCidadeCep={setcidadeCep} />
           <Button
             className="bg-blue-500 hover:bg-blue-600"
             onClick={handleSearch}
