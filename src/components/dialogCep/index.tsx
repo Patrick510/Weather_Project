@@ -16,9 +16,13 @@ import { getCep } from "../hooks/getCep";
 
 interface DialogCEPProps {
   setCidadeCep: any;
+  onCEPSearch: () => void;
 }
 
-export default function DialogCEP({ setCidadeCep }: DialogCEPProps) {
+export default function DialogCEP({
+  setCidadeCep,
+  onCEPSearch,
+}: DialogCEPProps) {
   const [cep, setCep] = useState<string>("");
   const [cepData, setCepData] = useState<any>(null);
   const [error, setError] = useState<string>("");
@@ -29,6 +33,7 @@ export default function DialogCEP({ setCidadeCep }: DialogCEPProps) {
       const data = await getCep({ cep });
       setCepData(data);
       setCidadeCep(data.localidade);
+      onCEPSearch();
     } catch (err) {
       setError("CEP não encontrado ou erro na busca");
     }
@@ -41,13 +46,13 @@ export default function DialogCEP({ setCidadeCep }: DialogCEPProps) {
           variant="outline"
           className="border-blue-300 text-blue-600 hover:bg-blue-50"
         >
-          Use CEP
+          Use zip code
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-blue-600">
-            Insira o CEP
+            Enter the zip code
           </DialogTitle>
           <DialogDescription className="text-gray-600">
             Enter your ZIP code to automatically fill in your address

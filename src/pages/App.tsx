@@ -69,7 +69,7 @@ export default function App() {
           </form>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <DialogCEP setCidadeCep={setcidadeCep} />
+          <DialogCEP setCidadeCep={setcidadeCep} onCEPSearch={handleSearch} />
           <Button
             className="bg-blue-500 hover:bg-blue-600"
             onClick={handleSearch}
