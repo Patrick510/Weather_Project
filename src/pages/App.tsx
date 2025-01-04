@@ -1,4 +1,4 @@
-import DialogCEP from "@/components/dialogcep";
+import DialogCEP from "@/components/dialogCep";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -30,28 +30,6 @@ export default function App() {
   useEffect(() => {
     setShowWeatherCard(false);
   }, []);
-
-  useEffect(() => {
-    if (showWeatherCard && weatherCardRef.current) {
-      const timer = setTimeout(() => {
-        weatherCardRef.current?.classList.remove("hidden");
-        setAnimationCounter(1);
-      }, 50);
-
-      return () => clearTimeout(timer);
-    }
-  }, [showWeatherCard]);
-
-  useEffect(() => {
-    if (animationCounter === 1 && weatherCardRef.current) {
-      const timer = setTimeout(() => {
-        weatherCardRef.current!.style.height = "510px";
-        setAnimationCounter(2);
-      }, 50);
-
-      return () => clearTimeout(timer);
-    }
-  }, [animationCounter]);
 
   async function getCEP() {
     await axios
