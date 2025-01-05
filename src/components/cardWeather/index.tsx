@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { useEffect, useRef, useState } from "react";
-import notFound from "@/assets/404.png";
+import notFound from "@/assets/error2.svg";
 import cloud from "@/assets/cloud.png";
 
 interface CardWeatherProps {
@@ -64,31 +64,39 @@ export default function CardWeather({
     >
       <CardHeader
         className={`bg-gradient-to-r ${
-          weatherData === null
-            ? "from-blue-500 to-blue-600"
-            : "from-red-500 to-red-600"
+          weatherData?.cod !== 200
+            ? "from-red-500 to-red-600"
+            : "from-blue-500 to-blue-600"
         }  text-white p-6`}
       >
         <CardTitle className="text-3xl font-bold flex items-center justify-center gap-2 capitalize">
-          {weatherData === null ? (
-            <MapPin className="h-8 w-8" />
+          {weatherData?.cod !== 200 ? (
+            <>
+              <TriangleAlert className="h-8 w-8" />
+              City not found
+            </>
           ) : (
-            <TriangleAlert className="h-8 w-8" />
+            <>
+              <MapPin className="h-8 w-8" />
+              {weatherData?.name}
+            </>
           )}
-          {weatherData === null
-            ? weatherData?.name
-            : weatherData?.response.data.message}
         </CardTitle>
         <p className="text-center text-blue-100 mt-2">
-          {weatherData === null ? "Current Weather" : "Error"}{" "}
+          {weatherData?.cod !== 200 ? "Error" : "Current Weather"}{" "}
         </p>
       </CardHeader>
 
       <CardContent className="p-6">
-        {weatherData !== null && (
+        {weatherData?.cod !== 200 && (
           <div id="not-found">
-            <img src={notFound} alt="404" className="mx-auto w-50" />
-            <p className="text-center text-blue-600 font-semibold mt-4">
+            <img
+              src={notFound}
+              alt="404"
+              className="mx-auto"
+              style={{ maxWidth: "70%" }}
+            />
+            <p className="text-center text-red-600 font-normal mt-4">
               Ooops! Invalid Location
             </p>
           </div>
