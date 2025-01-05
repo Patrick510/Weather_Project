@@ -1,4 +1,11 @@
-import { MapPin, Sun, Thermometer, Waves, Wind } from "lucide-react";
+import {
+  MapPin,
+  Sun,
+  Thermometer,
+  TriangleAlert,
+  Waves,
+  Wind,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { useEffect, useRef, useState } from "react";
 import notFound from "@/assets/404.png";
@@ -55,18 +62,33 @@ export default function CardWeather({
       }`}
       style={{ height: "0px" }}
     >
-      <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
-        <CardTitle className="text-3xl font-bold flex items-center justify-center gap-2">
-          <MapPin className="h-8 w-8" /> {weatherData?.name}
+      <CardHeader
+        className={`bg-gradient-to-r ${
+          weatherData === null
+            ? "from-blue-500 to-blue-600"
+            : "from-red-500 to-red-600"
+        }  text-white p-6`}
+      >
+        <CardTitle className="text-3xl font-bold flex items-center justify-center gap-2 capitalize">
+          {weatherData === null ? (
+            <MapPin className="h-8 w-8" />
+          ) : (
+            <TriangleAlert className="h-8 w-8" />
+          )}
+          {weatherData === null
+            ? weatherData?.name
+            : weatherData?.response.data.message}
         </CardTitle>
-        <p className="text-center text-blue-100 mt-2">Current Weather</p>
+        <p className="text-center text-blue-100 mt-2">
+          {weatherData === null ? "Current Weather" : "Error"}{" "}
+        </p>
       </CardHeader>
 
       <CardContent className="p-6">
-        {weatherData?.status !== 404 && (
-          <div className="hidden" id="not-found">
-            <img src={notFound} alt="404" className="mx-auto" />
-            <p className="text-center text-red-500 font-semibold mt-4">
+        {weatherData !== null && (
+          <div id="not-found">
+            <img src={notFound} alt="404" className="mx-auto w-50" />
+            <p className="text-center text-blue-600 font-semibold mt-4">
               Ooops! Invalid Location
             </p>
           </div>

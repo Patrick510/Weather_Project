@@ -13,6 +13,6 @@ export async function getWeather({ city }: CardGetWeatherProps) {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw error;
+    return error;
   }
 }

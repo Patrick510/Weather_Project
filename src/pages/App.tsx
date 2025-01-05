@@ -41,6 +41,7 @@ export default function App() {
       setShowWeatherCard(true);
     } catch (error) {
       console.error("Erro ao obter previsão do tempo:", error);
+      setWeatherData(error);
     }
   };
 
