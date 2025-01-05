@@ -17,19 +17,25 @@ import { getWeather } from "@/components/hooks/getWeather";
 import CardWeather from "@/components/cardWeather";
 
 export default function App() {
-  const [cidadeCep, setcidadeCep] = useState<any>(null);
   const [city, setCity] = useState<string>("");
   const [weatherData, setWeatherData] = useState<any>(null);
   const [showWeatherCard, setShowWeatherCard] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
     setShowWeatherCard(false);
   }, []);
 
-  const handleSearch = async () => {
+  const handleSearch = async (cidade?: string) => {
+    setWeatherData(null);
     setShowWeatherCard(false);
+    setCity("");
     try {
-      const searchCity = city || cidadeCep;
+      console.log("CidadeCep antes da busca:", cidade);
+      const searchCity = city || cidade;
+      if (!searchCity) {
+        throw new Error("City is required");
+      }
       const data = await getWeather({ city: searchCity });
       setWeatherData(data);
       setShowWeatherCard(true);
@@ -69,10 +75,14 @@ export default function App() {
           </form>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <DialogCEP setCidadeCep={setcidadeCep} onCEPSearch={handleSearch} />
+          <DialogCEP
+            onCEPSearch={handleSearch}
+            open={dialogOpen}
+            setOpen={setDialogOpen}
+          />
           <Button
             className="bg-blue-500 hover:bg-blue-600"
-            onClick={handleSearch}
+            onClick={() => handleSearch(city)}
           >
             <Search className="mr-2 h-4 w-4" /> Search
           </Button>

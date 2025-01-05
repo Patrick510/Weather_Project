@@ -63,7 +63,7 @@ export default function CardWeather({
       </CardHeader>
 
       <CardContent className="p-6">
-        {weatherData?.cod !== 200 && (
+        {weatherData?.status !== 404 && (
           <div className="hidden" id="not-found">
             <img src={notFound} alt="404" className="mx-auto" />
             <p className="text-center text-red-500 font-semibold mt-4">

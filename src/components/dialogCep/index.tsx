@@ -15,13 +15,15 @@ import { useState } from "react";
 import { getCep } from "../hooks/getCep";
 
 interface DialogCEPProps {
-  setCidadeCep: any;
-  onCEPSearch: () => void;
+  onCEPSearch: (localidade: string) => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 export default function DialogCEP({
-  setCidadeCep,
   onCEPSearch,
+  open,
+  setOpen,
 }: DialogCEPProps) {
   const [cep, setCep] = useState<string>("");
   const [cepData, setCepData] = useState<any>(null);
@@ -32,15 +34,15 @@ export default function DialogCEP({
     try {
       const data = await getCep({ cep });
       setCepData(data);
-      setCidadeCep(data.localidade);
-      onCEPSearch();
+      onCEPSearch(data.localidade);
+      setOpen(false);
     } catch (err) {
       setError("CEP não encontrado ou erro na busca");
     }
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
