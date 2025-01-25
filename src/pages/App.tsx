@@ -56,7 +56,7 @@ export default function App() {
           city: data.name,
           weather: data.weather[0].description,
           country: data.sys.country,
-          cep: cidade ? cidade : "",
+          cep: cepHistory ? cepHistory : "Without cep",
           id: id,
         },
       ]);
@@ -66,6 +66,10 @@ export default function App() {
       console.error("Erro ao obter previsão do tempo:", error);
       setWeatherData(error);
     }
+  };
+
+  const handleDeleteHistory = (id: number) => {
+    setHistory((prevHistory) => prevHistory.filter((item) => item.id !== id));
   };
 
   return (

@@ -18,13 +18,9 @@ export default function CardHistory() {
   const location = useLocation();
   const history = location.state?.history || [];
 
-  const handleDelete = (id: string) => {
-    // Implement delete functionality
-    console.log("Delete item with id:", id);
-  };
+  const handleDelete = (id: string) => {};
 
   const handleEdit = (id: string) => {
-    // Implement edit functionality
     console.log("Edit item with id:", id);
   };
 

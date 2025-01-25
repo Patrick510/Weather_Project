@@ -10,7 +10,7 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/history" element={<CardHistory history={[]} />} />
+        <Route path="/history" element={<CardHistory />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
