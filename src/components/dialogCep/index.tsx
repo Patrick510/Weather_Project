@@ -18,12 +18,14 @@ interface DialogCEPProps {
   onCEPSearch: (localidade: string) => void;
   open: boolean;
   setOpen: (open: boolean) => void;
+  setCepHistory?: (cep: string) => void;
 }
 
 export default function DialogCEP({
   onCEPSearch,
   open,
   setOpen,
+  setCepHistory,
 }: DialogCEPProps) {
   const [cep, setCep] = useState<string>("");
   const [cepData, setCepData] = useState<any>(null);
@@ -32,6 +34,7 @@ export default function DialogCEP({
   const handleSearchCep = async () => {
     setError("");
     try {
+      setCepHistory && setCepHistory(cep);
       const data = await getCep({ cep });
       setCepData(data);
       onCEPSearch(data.localidade);

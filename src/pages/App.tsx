@@ -11,16 +11,27 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
-import { AlignJustify, Search } from "lucide-react";
+import { Search } from "lucide-react";
 
 import { getWeather } from "@/components/hooks/getWeather";
 import CardWeather from "@/components/cardWeather";
+import { NavLink } from "react-router";
+
+type HistoryItem = {
+  city: string;
+  weather: string;
+  country: string;
+  id: number;
+};
 
 export default function App() {
   const [city, setCity] = useState<string>("");
   const [weatherData, setWeatherData] = useState<any>(null);
   const [showWeatherCard, setShowWeatherCard] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [id, setId] = useState(0);
+  const [cepHistory, setCepHistory] = useState<string>("");
 
   useEffect(() => {
     setShowWeatherCard(false);
@@ -38,6 +49,18 @@ export default function App() {
       }
       const data = await getWeather({ city: searchCity });
       setWeatherData(data);
+      setId((prevId) => prevId + 1);
+      setHistory((prevHistory: any) => [
+        ...prevHistory,
+        {
+          city: data.name,
+          weather: data.weather[0].description,
+          country: data.sys.country,
+          cep: cidade ? cidade : "",
+          id: id,
+        },
+      ]);
+      console.log("History:", history);
       setShowWeatherCard(true);
     } catch (error) {
       console.error("Erro ao obter previsão do tempo:", error);
@@ -57,13 +80,15 @@ export default function App() {
               Search your city and check the weather
             </CardDescription>
           </div>
-          <Button
-            variant={"outline"}
-            className="text-blue-600 hover:text-blue-800 hover:bg-blue-100"
-          >
-            {" "}
-            History
-          </Button>
+          <NavLink to="/history" state={{ history: history }}>
+            <Button
+              variant={"outline"}
+              className="text-blue-600 hover:text-blue-800 hover:bg-blue-100"
+            >
+              {" "}
+              History
+            </Button>
+          </NavLink>
         </CardHeader>
 
         <CardContent>
@@ -89,6 +114,7 @@ export default function App() {
             onCEPSearch={handleSearch}
             open={dialogOpen}
             setOpen={setDialogOpen}
+            setCepHistory={setCepHistory}
           />
           <Button
             className="bg-blue-500 hover:bg-blue-600"
