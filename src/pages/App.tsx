@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { AlignJustify, Search } from "lucide-react";
 
 import { getWeather } from "@/components/hooks/getWeather";
 import CardWeather from "@/components/cardWeather";
@@ -48,13 +48,22 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex gap-8 items-center justify-center">
       <Card className="w-full max-w-md shadow-lg">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-blue-600">
-            Weather Forecast
-          </CardTitle>
-          <CardDescription className="text-gray-600">
-            Search your city and check the weather
-          </CardDescription>
+        <CardHeader className="flex justify-between flex-row items-center">
+          <div>
+            <CardTitle className="text-2xl font-bold text-blue-600">
+              Weather Forecast
+            </CardTitle>
+            <CardDescription className="text-gray-600">
+              Search your city and check the weather
+            </CardDescription>
+          </div>
+          <Button
+            variant={"outline"}
+            className="text-blue-600 hover:text-blue-800 hover:bg-blue-100"
+          >
+            {" "}
+            History
+          </Button>
         </CardHeader>
 
         <CardContent>
