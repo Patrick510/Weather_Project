@@ -1,5 +1,3 @@
-"use client";
-
 import { Pen, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,31 +10,32 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { NavLink, useLocation } from "react-router";
 
-export default function CardHistory() {
-  const location = useLocation();
-  const history = location.state?.history || [];
+interface HistoryItem {
+  history: any;
+  ondelete: (id: number) => void;
+  onedit: (id: number) => void;
+  setShowHistory: (show: boolean) => void;
+}
 
-  const handleDelete = (id: string) => {};
-
-  const handleEdit = (id: string) => {
-    console.log("Edit item with id:", id);
-  };
-
+export default function CardHistory({
+  history,
+  ondelete,
+  onedit,
+  setShowHistory,
+}: HistoryItem) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex items-center justify-center">
-      <Card className="w-full max-w-4xl shadow-lg">
+    <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex items-center justify-center">
+      <Card className="w-full shadow-lg">
         <CardHeader className="flex justify-between flex-row items-center bg-blue-600 text-white rounded-t-lg">
           <CardTitle className="text-2xl font-bold">History</CardTitle>
-          <NavLink to="/" className="text-white hover:text-blue-200">
-            <Button
-              variant="outline"
-              className="border-white bg-transparent text-white hover:bg-blue-700 hover:text-white transition-colors duration-200"
-            >
-              Back
-            </Button>
-          </NavLink>
+          <Button
+            variant="outline"
+            className="border-white bg-transparent text-white hover:bg-blue-700 hover:text-white transition-colors duration-200"
+            onClick={() => setShowHistory(false)}
+          >
+            Back
+          </Button>
         </CardHeader>
 
         <CardContent className="p-6">
@@ -53,7 +52,6 @@ export default function CardHistory() {
                 <TableHead className="font-bold text-blue-800">
                   Country
                 </TableHead>
-                <TableHead className="font-bold text-blue-800">CEP</TableHead>
                 <TableHead className="text-right font-bold text-blue-800">
                   Actions
                 </TableHead>
@@ -70,12 +68,11 @@ export default function CardHistory() {
                   </TableCell>
                   <TableCell>{item.weather}</TableCell>
                   <TableCell>{item.country}</TableCell>
-                  <TableCell>{item.cep}</TableCell>
                   <TableCell className="text-right">
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => handleEdit(item.id)}
+                      onClick={() => onedit(item.id)}
                       className="mr-2 hover:bg-blue-200 transition-colors duration-200"
                     >
                       <Pen className="h-4 w-4 text-blue-600" />
@@ -83,7 +80,7 @@ export default function CardHistory() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => handleDelete(item.id)}
+                      onClick={() => ondelete(item.id)}
                       className="hover:bg-red-100 transition-colors duration-200"
                     >
                       <Trash className="h-4 w-4 text-red-600" />

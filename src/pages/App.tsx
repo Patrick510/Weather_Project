@@ -16,6 +16,7 @@ import { Search } from "lucide-react";
 import { getWeather } from "@/components/hooks/getWeather";
 import CardWeather from "@/components/cardWeather";
 import { NavLink } from "react-router";
+import CardHistory from "@/components/cardHistory";
 
 type HistoryItem = {
   city: string;
@@ -31,7 +32,7 @@ export default function App() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [id, setId] = useState(0);
-  const [cepHistory, setCepHistory] = useState<string>("");
+  const [showHistory, setShowHistory] = useState(false);
 
   useEffect(() => {
     setShowWeatherCard(false);
@@ -56,7 +57,6 @@ export default function App() {
           city: data.name,
           weather: data.weather[0].description,
           country: data.sys.country,
-          cep: cepHistory ? cepHistory : "Without cep",
           id: id,
         },
       ]);
@@ -72,62 +72,75 @@ export default function App() {
     setHistory((prevHistory) => prevHistory.filter((item) => item.id !== id));
   };
 
+  const handleEditHistory = (id: number) => {
+    console.log("Editando item:", id);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex gap-8 items-center justify-center">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="flex justify-between flex-row items-center">
-          <div>
-            <CardTitle className="text-2xl font-bold text-blue-600">
-              Weather Forecast
-            </CardTitle>
-            <CardDescription className="text-gray-600">
-              Search your city and check the weather
-            </CardDescription>
-          </div>
-          <NavLink to="/history" state={{ history: history }}>
+      {showHistory ? (
+        <CardHistory
+          history={history}
+          ondelete={handleDeleteHistory}
+          onedit={handleEditHistory}
+          setShowHistory={setShowHistory}
+        />
+      ) : (
+        <Card className="w-full max-w-md shadow-lg">
+          <CardHeader className="flex justify-between flex-row items-center">
+            <div>
+              <CardTitle className="text-2xl font-bold text-blue-600">
+                Weather Forecast
+              </CardTitle>
+              <CardDescription className="text-gray-600">
+                Search your city and check the weather
+              </CardDescription>
+            </div>
             <Button
               variant={"outline"}
               className="text-blue-600 hover:text-blue-800 hover:bg-blue-100"
+              onClick={() => {
+                setShowHistory(true);
+              }}
             >
               {" "}
               History
             </Button>
-          </NavLink>
-        </CardHeader>
+          </CardHeader>
 
-        <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name" className="text-gray-700">
-                  City
-                </Label>
-                <Input
-                  id="name"
-                  placeholder="Name of your city"
-                  className="border-blue-200 focus:border-blue-400"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                />
+          <CardContent>
+            <form>
+              <div className="grid w-full items-center gap-4">
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="name" className="text-gray-700">
+                    City
+                  </Label>
+                  <Input
+                    id="name"
+                    placeholder="Name of your city"
+                    className="border-blue-200 focus:border-blue-400"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </div>
               </div>
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <DialogCEP
-            onCEPSearch={handleSearch}
-            open={dialogOpen}
-            setOpen={setDialogOpen}
-            setCepHistory={setCepHistory}
-          />
-          <Button
-            className="bg-blue-500 hover:bg-blue-600"
-            onClick={() => handleSearch(city)}
-          >
-            <Search className="mr-2 h-4 w-4" /> Search
-          </Button>
-        </CardFooter>
-      </Card>
+            </form>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <DialogCEP
+              onCEPSearch={handleSearch}
+              open={dialogOpen}
+              setOpen={setDialogOpen}
+            />
+            <Button
+              className="bg-blue-500 hover:bg-blue-600"
+              onClick={() => handleSearch(city)}
+            >
+              <Search className="mr-2 h-4 w-4" /> Search
+            </Button>
+          </CardFooter>
+        </Card>
+      )}
 
       {showWeatherCard && weatherData && (
         <CardWeather weatherData={weatherData} showCard={showWeatherCard} />
