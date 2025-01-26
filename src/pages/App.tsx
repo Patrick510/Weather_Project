@@ -60,7 +60,6 @@ export default function App() {
           id: id,
         },
       ]);
-      console.log("History:", history);
       setShowWeatherCard(true);
     } catch (error) {
       console.error("Erro ao obter previsão do tempo:", error);
@@ -72,8 +71,9 @@ export default function App() {
     setHistory((prevHistory) => prevHistory.filter((item) => item.id !== id));
   };
 
-  const handleEditHistory = (id: number) => {
+  const handleEditHistory = (id: number, item: HistoryItem[]) => {
     console.log("Editando item:", id);
+    item = history.filter((item) => item.id === id);
   };
 
   return (

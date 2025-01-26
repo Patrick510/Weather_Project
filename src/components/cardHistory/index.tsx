@@ -10,11 +10,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import DialogEdit from "../dialogEdit";
+import { useState } from "react";
 
 interface HistoryItem {
   history: any;
   ondelete: (id: number) => void;
-  onedit: (id: number) => void;
+  onedit: (id: number, item: any) => void;
   setShowHistory: (show: boolean) => void;
 }
 
@@ -24,6 +26,8 @@ export default function CardHistory({
   onedit,
   setShowHistory,
 }: HistoryItem) {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   return (
     <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex items-center justify-center">
       <Card className="w-full shadow-lg">
@@ -69,14 +73,11 @@ export default function CardHistory({
                   <TableCell>{item.weather}</TableCell>
                   <TableCell>{item.country}</TableCell>
                   <TableCell className="text-right">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => onedit(item.id)}
-                      className="mr-2 hover:bg-blue-200 transition-colors duration-200"
-                    >
-                      <Pen className="h-4 w-4 text-blue-600" />
-                    </Button>
+                    <DialogEdit
+                      item={item}
+                      open={dialogOpen}
+                      setOpen={setDialogOpen}
+                    />
                     <Button
                       variant="ghost"
                       size="icon"
