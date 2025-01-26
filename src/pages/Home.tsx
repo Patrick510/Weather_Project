@@ -51,7 +51,7 @@ export default function Home() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <NavLink to="/">
+          <NavLink to="/home">
             <Button className="bg-blue-500 hover:bg-blue-600 text-lg px-6 py-3">
               Start Exploring Weather
             </Button>

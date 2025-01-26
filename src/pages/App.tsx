@@ -78,7 +78,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex gap-8 items-center justify-center">
-      <NavLink to="/home">
+      <NavLink to="/">
         <Button className="bg-blue-500 hover:bg-blue-600 absolute top-4 left-4 rounded-full">
           <House className="h-4 w-4" />
         </Button>
