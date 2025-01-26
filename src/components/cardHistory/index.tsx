@@ -77,7 +77,12 @@ export default function CardHistory({
                       item={item}
                       open={dialogOpen}
                       setOpen={setDialogOpen}
+                      onEdit={(id, updatedItem) => {
+                        setDialogOpen(false);
+                        onedit(id, updatedItem);
+                      }}
                     />
+
                     <Button
                       variant="ghost"
                       size="icon"

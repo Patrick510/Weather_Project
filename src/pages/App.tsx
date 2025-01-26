@@ -71,9 +71,12 @@ export default function App() {
     setHistory((prevHistory) => prevHistory.filter((item) => item.id !== id));
   };
 
-  const handleEditHistory = (id: number, item: HistoryItem[]) => {
-    console.log("Editando item:", id);
-    item = history.filter((item) => item.id === id);
+  const handleEditHistory = (id: number, updatedItem: HistoryItem) => {
+    setHistory((prevHistory) =>
+      prevHistory.map((item) =>
+        item.id === id ? { ...item, ...updatedItem } : item
+      )
+    );
   };
 
   return (
