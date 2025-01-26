@@ -17,7 +17,6 @@ import { getWeather } from "@/components/hooks/getWeather";
 import CardWeather from "@/components/cardWeather";
 import { NavLink } from "react-router";
 import CardHistory from "@/components/cardHistory";
-import { error } from "console";
 
 type HistoryItem = {
   city: string;
