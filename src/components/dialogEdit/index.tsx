@@ -11,6 +11,7 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useEffect, useState } from "react";
 
 interface DialogEditProps {
   open: boolean;
@@ -19,6 +20,19 @@ interface DialogEditProps {
 }
 
 export default function DialogEdit({ item, open, setOpen }: DialogEditProps) {
+  const [city, setCity] = useState<string>("");
+  const [weatherclouds, setWeatherClouds] = useState<string>("");
+  const [country, setCountry] = useState<string>("");
+
+  useEffect(() => {
+    console.log("Item:", item);
+    if (item) {
+      setCity(item.city);
+      setWeatherClouds(item.weatherclouds);
+      setCountry(item.country);
+    }
+  }, [item]);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -45,15 +59,31 @@ export default function DialogEdit({ item, open, setOpen }: DialogEditProps) {
               City
             </Label>
             <Input
-              id="cep"
-              placeholder="00000-000"
+              id="city"
+              placeholder="Your city"
+              className="col-span-3 text-gray-800 border-blue-200 focus:border-blue-400"
+            />
+            <Label htmlFor="cep" className="text-right text-gray-700">
+              Weather Clouds
+            </Label>
+            <Input
+              id="weatherclouds"
+              placeholder="overcast..."
+              className="col-span-3 text-gray-800 border-blue-200 focus:border-blue-400"
+            />
+            <Label htmlFor="cep" className="text-right text-gray-700">
+              Country
+            </Label>
+            <Input
+              id="country"
+              placeholder="Brazil"
               className="col-span-3 text-gray-800 border-blue-200 focus:border-blue-400"
             />
           </div>
         </div>
         <DialogFooter>
           <Button type="submit" className="bg-blue-500 hover:bg-blue-600">
-            <Search className="mr-2 h-4 w-4" /> Search CEP
+            <Pen className="mr-2 h-4 w-4" /> Edit
           </Button>
         </DialogFooter>
       </DialogContent>
