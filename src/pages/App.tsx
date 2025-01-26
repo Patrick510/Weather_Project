@@ -11,12 +11,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { House, Search } from "lucide-react";
 
 import { getWeather } from "@/components/hooks/getWeather";
 import CardWeather from "@/components/cardWeather";
 import { NavLink } from "react-router";
 import CardHistory from "@/components/cardHistory";
+import { error } from "console";
 
 type HistoryItem = {
   city: string;
@@ -78,6 +79,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex gap-8 items-center justify-center">
+      <NavLink to="/home">
+        <Button className="bg-blue-500 hover:bg-blue-600 absolute top-4 left-4 rounded-full">
+          <House className="h-4 w-4" />
+        </Button>
+      </NavLink>
       {showHistory ? (
         <CardHistory
           history={history}
