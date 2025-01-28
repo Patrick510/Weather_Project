@@ -1,4 +1,4 @@
-import { Pen, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -30,7 +30,7 @@ export default function CardHistory({
 
   return (
     <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex items-center justify-center">
-      <Card className="w-full shadow-lg">
+      <Card className="w-full shadow-lg max-h-[510px] h-full">
         <CardHeader className="flex justify-between flex-row items-center bg-blue-600 text-white rounded-t-lg">
           <CardTitle className="text-2xl font-bold">History</CardTitle>
           <Button
@@ -42,7 +42,7 @@ export default function CardHistory({
           </Button>
         </CardHeader>
 
-        <CardContent className="p-6">
+        <CardContent className="p-6 overflow-auto max-h-[415px]">
           <Table>
             <TableCaption className="caption-bottom mt-4 text-blue-600 font-semibold">
               History of searches

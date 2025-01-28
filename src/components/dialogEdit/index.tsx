@@ -1,4 +1,4 @@
-import { Pen, Search } from "lucide-react";
+import { Pen } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -26,14 +26,12 @@ export default function DialogEdit({
   setOpen,
   onEdit,
 }: DialogEditProps) {
-  const [idCity, setIdCity] = useState<number>(0);
   const [city, setCity] = useState<string>("");
   const [weatherclouds, setWeatherClouds] = useState<string>("");
   const [country, setCountry] = useState<string>("");
 
   useEffect(() => {
     if (item) {
-      setIdCity(item.id);
       setCity(item.city);
       setWeatherClouds(item.weather);
       setCountry(item.country);
