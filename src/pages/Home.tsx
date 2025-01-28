@@ -8,11 +8,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CloudSun, Search, Clock, Map } from "lucide-react";
-import { NavLink, useLocation } from "react-router";
+import { NavLink } from "react-router";
 
 export default function Home() {
-  const location = useLocation();
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex items-center justify-center">
       <Card className="w-full max-w-4xl shadow-lg">

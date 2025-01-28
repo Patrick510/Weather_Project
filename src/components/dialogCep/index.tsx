@@ -26,8 +26,8 @@ export default function DialogCEP({
   setOpen,
 }: DialogCEPProps) {
   const [cep, setCep] = useState<string>("");
-  const [cepData, setCepData] = useState<any>(null);
-  const [error, setError] = useState<string>("");
+  const [, setCepData] = useState<any>(null);
+  const [, setError] = useState<string>("");
 
   const handleSearchCep = async () => {
     setError("");

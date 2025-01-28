@@ -43,7 +43,6 @@ export default function App() {
     setShowWeatherCard(false);
     setCity("");
     try {
-      console.log("CidadeCep antes da busca:", cidade);
       const searchCity = city || cidade;
       if (!searchCity) {
         throw new Error("City is required");
