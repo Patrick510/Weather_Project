@@ -8,9 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CloudSun, Search, Clock, Map } from "lucide-react";
+import { useState } from "react";
 import { NavLink } from "react-router";
 
 export default function Home() {
+  const [login, setLogin] = useState(false)
   return (
     <div className="min-h-screen bg-gray-200 p-8 flex items-center justify-center">
       <Card className="w-full max-w-4xl shadow-lg">
@@ -49,9 +51,9 @@ export default function Home() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <NavLink to="/home">
+          <NavLink to="/login">
             <Button className="bg-gray-500 hover:bg-gray-600 text-lg px-6 py-3">
-              Start Exploring Weather
+              {login ? "Start "}
             </Button>
           </NavLink>
         </CardFooter>
