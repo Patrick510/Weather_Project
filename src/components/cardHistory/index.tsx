@@ -29,13 +29,13 @@ export default function CardHistory({
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex items-center justify-center">
+    <div className="bg-transparent p-8 flex items-center justify-center">
       <Card className="w-full shadow-lg max-h-[510px] h-full">
-        <CardHeader className="flex justify-between flex-row items-center bg-blue-600 text-white rounded-t-lg">
+        <CardHeader className="flex justify-between flex-row items-center bg-gray-600 text-white rounded-t-lg">
           <CardTitle className="text-2xl font-bold">History</CardTitle>
           <Button
             variant="outline"
-            className="border-white bg-transparent text-white hover:bg-blue-700 hover:text-white transition-colors duration-200"
+            className="border-white bg-transparent text-white hover:bg-gray-700 hover:text-white transition-colors duration-200"
             onClick={() => setShowHistory(false)}
           >
             Back
@@ -44,19 +44,19 @@ export default function CardHistory({
 
         <CardContent className="p-6 overflow-auto max-h-[415px]">
           <Table>
-            <TableCaption className="caption-bottom mt-4 text-blue-600 font-semibold">
+            <TableCaption className="caption-bottom mt-4 text-gray-600 font-semibold">
               History of searches
             </TableCaption>
             <TableHeader>
-              <TableRow className="bg-blue-50 border-b-2 border-blue-200">
-                <TableHead className="font-bold text-blue-800">City</TableHead>
-                <TableHead className="font-bold text-blue-800">
+              <TableRow className="bg-gray-50 border-b-2 border-gray-200">
+                <TableHead className="font-bold text-gray-800">City</TableHead>
+                <TableHead className="font-bold text-gray-800">
                   Weather
                 </TableHead>
-                <TableHead className="font-bold text-blue-800">
+                <TableHead className="font-bold text-gray-800">
                   Country
                 </TableHead>
-                <TableHead className="text-right font-bold text-blue-800">
+                <TableHead className="text-right font-bold text-gray-800">
                   Actions
                 </TableHead>
               </TableRow>
@@ -65,9 +65,9 @@ export default function CardHistory({
               {history.map((item: any) => (
                 <TableRow
                   key={item.id}
-                  className="border-b border-blue-100 hover:bg-blue-50 transition-colors duration-200"
+                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200"
                 >
-                  <TableCell className="font-medium text-blue-700">
+                  <TableCell className="font-medium text-gray-700">
                     {item.city}
                   </TableCell>
                   <TableCell>{item.weather}</TableCell>

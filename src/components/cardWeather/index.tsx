@@ -66,7 +66,7 @@ export default function CardWeather({
         className={`bg-gradient-to-r ${
           weatherData?.cod !== 200
             ? "from-red-500 to-red-600"
-            : "from-blue-500 to-blue-600"
+            : "from-gray-500 to-gray-600"
         }  text-white p-6`}
       >
         <CardTitle className="text-3xl font-bold flex items-center justify-center gap-2 capitalize">
@@ -82,7 +82,7 @@ export default function CardWeather({
             </>
           )}
         </CardTitle>
-        <p className="text-center text-blue-100 mt-2">
+        <p className="text-center text-gray-100 mt-2">
           {weatherData?.cod !== 200 ? "Error" : "Current Weather"}{" "}
         </p>
       </CardHeader>
@@ -128,8 +128,8 @@ export default function CardWeather({
             </div>
 
             <div className="grid grid-cols-2 gap-4 w-full mt-6">
-              <div className="bg-blue-50 rounded-lg p-4 flex items-center">
-                <Thermometer className="h-8 w-8 text-blue-500 mr-3" />
+              <div className="bg-gray-50 rounded-lg p-4 flex items-center">
+                <Thermometer className="h-8 w-8 text-gray-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Feels like</p>
                   <p className="text-lg font-semibold text-gray-800">
@@ -137,8 +137,8 @@ export default function CardWeather({
                   </p>
                 </div>
               </div>
-              <div className="bg-blue-50 rounded-lg p-4 flex items-center">
-                <Sun className="h-8 w-8 text-blue-500 mr-3" />
+              <div className="bg-gray-50 rounded-lg p-4 flex items-center">
+                <Sun className="h-8 w-8 text-gray-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Visibility</p>
                   <p className="text-lg font-semibold text-gray-800">
@@ -146,8 +146,8 @@ export default function CardWeather({
                   </p>
                 </div>
               </div>
-              <div className="bg-blue-50 rounded-lg p-4 flex items-center">
-                <Waves className="h-8 w-8 text-blue-500 mr-3" />
+              <div className="bg-gray-50 rounded-lg p-4 flex items-center">
+                <Waves className="h-8 w-8 text-gray-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Humidity</p>
                   <p className="text-xl font-semibold text-gray-800">
@@ -155,8 +155,8 @@ export default function CardWeather({
                   </p>
                 </div>
               </div>
-              <div className="bg-blue-50 rounded-lg p-4 flex items-center">
-                <Wind className="h-8 w-8 text-blue-500 mr-3" />
+              <div className="bg-gray-50 rounded-lg p-4 flex items-center">
+                <Wind className="h-8 w-8 text-gray-500 mr-3" />
                 <div>
                   <p className="text-sm text-gray-500">Wind Speed</p>
                   <p className="text-xl font-semibold text-gray-800">

@@ -46,14 +46,14 @@ export default function DialogCEP({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="border-blue-300 text-blue-600 hover:bg-blue-50"
+          className="border-gray-300 text-gray-600 hover:bg-gray-50"
         >
           Use zip code
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-blue-600">
+          <DialogTitle className="text-2xl font-bold text-gray-600">
             Enter the zip code
           </DialogTitle>
           <DialogDescription className="text-gray-600">
@@ -69,7 +69,7 @@ export default function DialogCEP({
             <Input
               id="cep"
               placeholder="00000-000"
-              className="col-span-3 text-gray-800 border-blue-200 focus:border-blue-400"
+              className="col-span-3 text-gray-800 border-gray-200 focus:border-gray-400"
               onChange={(e) => setCep(e.target.value)}
               value={cep}
             />
@@ -78,7 +78,7 @@ export default function DialogCEP({
         <DialogFooter>
           <Button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600"
+            className="bg-gray-500 hover:bg-gray-600"
             onClick={handleSearchCep}
           >
             <Search className="mr-2 h-4 w-4" /> Search CEP

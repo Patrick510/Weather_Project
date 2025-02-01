@@ -12,12 +12,12 @@ import { NavLink } from "react-router";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-200 p-8 flex items-center justify-center">
       <Card className="w-full max-w-4xl shadow-lg">
         <CardHeader>
           <div className="flex items-center justify-center mb-4">
-            <CloudSun className="h-12 w-12 text-blue-500 mr-4" />
-            <CardTitle className="text-4xl font-bold text-blue-600">
+            <CloudSun className="h-12 w-12 text-gray-500 mr-4" />
+            <CardTitle className="text-4xl font-bold text-gray-600">
               Weather Forecast App
             </CardTitle>
           </div>
@@ -32,17 +32,17 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <FeatureCard
-              icon={<Search className="h-8 w-8 text-blue-500" />}
+              icon={<Search className="h-8 w-8 text-gray-500" />}
               title="City Search"
               description="Look up weather for any city globally"
             />
             <FeatureCard
-              icon={<Clock className="h-8 w-8 text-blue-500" />}
+              icon={<Clock className="h-8 w-8 text-gray-500" />}
               title="Real-time Data"
               description="Get up-to-date weather information"
             />
             <FeatureCard
-              icon={<Map className="h-8 w-8 text-blue-500" />}
+              icon={<Map className="h-8 w-8 text-gray-500" />}
               title="Location History"
               description="Keep track of your searched locations"
             />
@@ -50,7 +50,7 @@ export default function Home() {
         </CardContent>
         <CardFooter className="flex justify-center">
           <NavLink to="/home">
-            <Button className="bg-blue-500 hover:bg-blue-600 text-lg px-6 py-3">
+            <Button className="bg-gray-500 hover:bg-gray-600 text-lg px-6 py-3">
               Start Exploring Weather
             </Button>
           </NavLink>
@@ -73,7 +73,7 @@ function FeatureCard({
     <Card className="bg-white/50 backdrop-blur-sm">
       <CardHeader>
         <div className="flex items-center justify-center">{icon}</div>
-        <CardTitle className="text-center text-lg font-semibold text-blue-700">
+        <CardTitle className="text-center text-lg font-semibold text-gray-700">
           {title}
         </CardTitle>
       </CardHeader>

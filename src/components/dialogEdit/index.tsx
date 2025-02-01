@@ -44,14 +44,14 @@ export default function DialogEdit({
         <Button
           variant="ghost"
           size="icon"
-          className="mr-2 hover:bg-blue-200 transition-colors duration-200"
+          className="mr-2 hover:bg-gray-200 transition-colors duration-200"
         >
-          <Pen className="h-4 w-4 text-blue-600" />
+          <Pen className="h-4 w-4 text-gray-600" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-white">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-blue-600">
+          <DialogTitle className="text-2xl font-bold text-gray-600">
             Edit your data
           </DialogTitle>
           <DialogDescription className="text-gray-600">
@@ -67,7 +67,7 @@ export default function DialogEdit({
               id="city"
               value={city}
               placeholder="Your city"
-              className="col-span-3 text-gray-800 border-blue-200 focus:border-blue-400"
+              className="col-span-3 text-gray-800 border-gray-200 focus:border-gray-400"
               onChange={(e) => setCity(e.target.value)}
             />
             <Label htmlFor="cep" className="text-right text-gray-700">
@@ -77,7 +77,7 @@ export default function DialogEdit({
               id="weatherclouds"
               value={weatherclouds}
               placeholder="overcast..."
-              className="col-span-3 text-gray-800 border-blue-200 focus:border-blue-400"
+              className="col-span-3 text-gray-800 border-gray-200 focus:border-gray-400"
               onChange={(e) => setWeatherClouds(e.target.value)}
             />
             <Label htmlFor="cep" className="text-right text-gray-700">
@@ -87,7 +87,7 @@ export default function DialogEdit({
               id="country"
               value={country}
               placeholder="Brazil"
-              className="col-span-3 text-gray-800 border-blue-200 focus:border-blue-400"
+              className="col-span-3 text-gray-800 border-gray-200 focus:border-gray-400"
               onChange={(e) => setCountry(e.target.value)}
             />
           </div>
@@ -103,7 +103,7 @@ export default function DialogEdit({
                 country,
               });
             }}
-            className="bg-blue-500 hover:bg-blue-600"
+            className="bg-gray-500 hover:bg-gray-600"
           >
             Save Changes
           </Button>

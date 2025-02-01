@@ -79,9 +79,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 p-8 flex gap-8 items-center justify-center">
+    <div className="min-h-screen bg-gray-200 p-8 flex gap-8 items-center justify-center">
       <NavLink to="/">
-        <Button className="bg-blue-500 hover:bg-blue-600 absolute top-4 left-4 rounded-full">
+        <Button className="bg-gray-500 hover:bg-gray-600 absolute top-4 left-4 rounded-full">
           <House className="h-4 w-4" />
         </Button>
       </NavLink>
@@ -96,7 +96,7 @@ export default function App() {
         <Card className="w-full max-w-md shadow-lg">
           <CardHeader className="flex justify-between flex-row items-center">
             <div>
-              <CardTitle className="text-2xl font-bold text-blue-600">
+              <CardTitle className="text-2xl font-bold text-gray-600">
                 Weather Forecast
               </CardTitle>
               <CardDescription className="text-gray-600">
@@ -105,7 +105,7 @@ export default function App() {
             </div>
             <Button
               variant={"outline"}
-              className="text-blue-600 hover:text-blue-800 hover:bg-blue-100"
+              className="text-gray-600 hover:text-gray-800 hover:bg-gray-100"
               onClick={() => {
                 setShowHistory(true);
               }}
@@ -125,7 +125,7 @@ export default function App() {
                   <Input
                     id="name"
                     placeholder="Name of your city"
-                    className="border-blue-200 focus:border-blue-400"
+                    className="border-gray-200 focus:border-gray-400"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                   />
@@ -140,7 +140,7 @@ export default function App() {
               setOpen={setDialogOpen}
             />
             <Button
-              className="bg-blue-500 hover:bg-blue-600"
+              className="bg-gray-500 hover:bg-gray-600"
               onClick={() => handleSearch(city)}
             >
               <Search className="mr-2 h-4 w-4" /> Search
