@@ -43,23 +43,24 @@ export function RegisterPage() {
       <Card className="p-6 w-96 shadow-md">
         <CardHeader>
           <h2 className="text-2xl font-bold text-gray-700 text-center">
-            Cadastro
+            Register
           </h2>
         </CardHeader>
         <CardContent>
-          <Label>Usuário</Label>
+          <Label>Username</Label>
           <Input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Digite seu usuário"
+            placeholder="Type your username"
           />
-          <Label className="mt-4">Senha</Label>
+          <Label className="mt-4">Password</Label>
           <Input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Digite sua senha"
+            autoComplete="new-password"
+            placeholder="Type your password"
           />
         </CardContent>
         <CardFooter className="flex flex-col">
@@ -67,7 +68,7 @@ export function RegisterPage() {
             onClick={handleRegister}
             className="w-full bg-gray-600 hover:bg-gray-700"
           >
-            Cadastrar
+            Sign in
           </Button>
         </CardFooter>
       </Card>
