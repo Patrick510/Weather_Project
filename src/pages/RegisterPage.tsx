@@ -13,12 +13,27 @@ import { useNavigate } from "react-router-dom";
 export function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
+
+  const validatePassword = (password: string) => {
+    const regex = /^(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+    return regex.test(password);
+  };
 
   const handleRegister = () => {
     if (!username || !password) {
       alert("Preencha todos os campos!");
       return;
+    }
+
+    if (!validatePassword(password)) {
+      setPasswordError(
+        "A senha deve ter pelo menos 8 caracteres, uma letra maiúscula e um caractere especial."
+      );
+      return;
+    } else {
+      setPasswordError("");
     }
 
     const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
@@ -36,6 +51,13 @@ export function RegisterPage() {
 
     alert("Cadastro realizado com sucesso!");
     navigate("/login");
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (passwordError) {
+      setPasswordError("");
+    }
   };
 
   return (
@@ -58,10 +80,11 @@ export function RegisterPage() {
           <Input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             autoComplete="new-password"
             placeholder="Type your password"
           />
+          {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
         </CardContent>
         <CardFooter className="flex flex-col">
           <Button
