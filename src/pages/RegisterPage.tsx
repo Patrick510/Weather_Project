@@ -10,32 +10,32 @@ import { Label } from "@radix-ui/react-label";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function LoginPage() {
+export function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleRegister = () => {
     if (!username || !password) {
       alert("Preencha todos os campos!");
       return;
     }
 
-    // Verifica no localStorage
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const user = users.find(
-      (user: any) => user.username === username && user.password === password
+    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+    const userExists = existingUsers.some(
+      (user: any) => user.username === username
     );
 
-    if (!user) {
-      alert("Usuário ou senha incorretos!");
+    if (userExists) {
+      alert("Usuário já cadastrado!");
       return;
     }
 
-    // Salva o usuário logado na sessão
-    localStorage.setItem("loggedUser", JSON.stringify(user));
-    alert("Login realizado com sucesso!");
-    navigate("/"); // Redireciona para a home
+    const newUser = { username, password };
+    localStorage.setItem("users", JSON.stringify([...existingUsers, newUser]));
+
+    alert("Cadastro realizado com sucesso!");
+    navigate("/login");
   };
 
   return (
@@ -43,7 +43,7 @@ export function LoginPage() {
       <Card className="p-6 w-96 shadow-md">
         <CardHeader>
           <h2 className="text-2xl font-bold text-gray-700 text-center">
-            Login
+            Cadastro
           </h2>
         </CardHeader>
         <CardContent>
@@ -64,10 +64,10 @@ export function LoginPage() {
         </CardContent>
         <CardFooter className="flex flex-col">
           <Button
-            onClick={handleLogin}
+            onClick={handleRegister}
             className="w-full bg-gray-600 hover:bg-gray-700"
           >
-            Entrar
+            Cadastrar
           </Button>
         </CardFooter>
       </Card>
