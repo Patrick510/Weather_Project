@@ -21,7 +21,6 @@ export function LoginPage() {
       return;
     }
 
-    // Verifica no localStorage
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const user = users.find(
       (user: any) => user.username === username && user.password === password
@@ -32,10 +31,9 @@ export function LoginPage() {
       return;
     }
 
-    // Salva o usuário logado na sessão
     localStorage.setItem("loggedUser", JSON.stringify(user));
     alert("Login realizado com sucesso!");
-    navigate("/"); // Redireciona para a home
+    navigate("/");
   };
 
   return (
