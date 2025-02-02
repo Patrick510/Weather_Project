@@ -11,11 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
-import { House, Search } from "lucide-react";
+import { House, LogOut, Search } from "lucide-react";
 
 import { getWeather } from "@/components/hooks/getWeather";
 import CardWeather from "@/components/cardWeather";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import CardHistory from "@/components/cardHistory";
 
 type HistoryItem = {
@@ -33,6 +33,20 @@ export default function App() {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [id, setId] = useState(0);
   const [showHistory, setShowHistory] = useState(false);
+
+  const [login, setLogin] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("loggedUser") || "null");
+    setLogin(!!user);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedUser");
+    setLogin(false);
+    navigate("/login");
+  };
 
   useEffect(() => {
     setShowWeatherCard(false);
@@ -80,11 +94,21 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-200 p-8 flex gap-8 items-center justify-center">
-      <NavLink to="/">
-        <Button className="bg-gray-500 hover:bg-gray-600 absolute top-4 left-4 rounded-full">
-          <House className="h-4 w-4" />
-        </Button>
-      </NavLink>
+      <div className="absolute top-4 left-4 flex gap-2">
+        <NavLink to="/">
+          <Button className="bg-gray-500 hover:bg-gray-600 rounded-full">
+            <House className="h-4 w-4" />
+          </Button>
+        </NavLink>
+        {login && (
+          <Button
+            className="bg-red-500 hover:bg-red-600 rounded-full"
+            onClick={handleLogout}
+          >
+            <LogOut className="h-4 w-4" />
+          </Button>
+        )}
+      </div>
       {showHistory ? (
         <CardHistory
           history={history}

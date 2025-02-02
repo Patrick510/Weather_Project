@@ -14,6 +14,7 @@ export function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const handleLogin = () => {
     const MAX_ATTEMPTS = 5;
     let attempts = parseInt(localStorage.getItem("loginAttempts") || "0");
@@ -61,7 +62,7 @@ export function LoginPage() {
     localStorage.setItem("loggedUser", JSON.stringify(user));
     alert("Login realizado com sucesso!");
 
-    navigate("/");
+    navigate("/home");
   };
 
   return (
