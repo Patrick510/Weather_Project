@@ -7,63 +7,103 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
+  const [errorAttempts, setErrorAttempts] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const encodeBase64 = useCallback((text: string) => btoa(text), []);
+  const decodeBase64 = useCallback(
+    (encodedText: string) => atob(encodedText),
+    []
+  );
+
+  useEffect(() => {
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    if (!users.some((user: any) => user.username === "admin")) {
+      users.push({ username: "admin", password: encodeBase64("admin") });
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+  }, [encodeBase64]);
+
+  const handleLogin = useCallback(() => {
     const MAX_ATTEMPTS = 5;
-    let attempts = parseInt(localStorage.getItem("loginAttempts") || "0");
+    let attempts = Number.parseInt(
+      localStorage.getItem("loginAttempts") || "0"
+    );
 
     if (attempts >= MAX_ATTEMPTS) {
-      alert(
+      setErrorAttempts(
         "Você excedeu o número máximo de tentativas. Tente novamente em 30 segundos."
       );
       return;
     }
 
     if (!username || !password) {
-      alert("Por favor, preencha todos os campos!");
+      setErrorName("Por favor, preencha todos os campos!");
       return;
     }
 
     const usernamePattern = /^[a-zA-Z0-9_]+$/;
     if (!usernamePattern.test(username)) {
-      alert(
+      setErrorName(
         "O nome de usuário não pode conter espaços ou caracteres especiais."
       );
       return;
     }
 
     if (password.length < 6) {
-      alert("A senha precisa ter pelo menos 6 caracteres.");
+      setPasswordError("A senha precisa ter pelo menos 6 caracteres.");
       return;
     }
 
     const users = JSON.parse(localStorage.getItem("users") || "[]");
 
-    const user = users.find(
-      (user: any) => user.username === username && user.password === password
-    );
+    const user = users.find((user: any) => {
+      return (
+        user.username === username && decodeBase64(user.password) === password
+      );
+    });
 
     if (!user) {
       attempts += 1;
       localStorage.setItem("loginAttempts", attempts.toString());
-      alert("Credenciais inválidas! Tente novamente.");
+      setLoginError("Credenciais inválidas! Tente novamente.");
       return;
     }
 
     localStorage.setItem("loginAttempts", "0");
+    localStorage.setItem(
+      "loggedUser",
+      JSON.stringify({ username: user.username })
+    );
+    setLoginMessage("Login realizado com sucesso!");
 
-    localStorage.setItem("loggedUser", JSON.stringify(user));
-    alert("Login realizado com sucesso!");
+    setTimeout(() => {
+      navigate("/home");
+    }, 1000);
+  }, [username, password, navigate, decodeBase64]);
 
-    navigate("/home");
-  };
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        handleLogin();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleLogin]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -89,6 +129,11 @@ export function LoginPage() {
             autoComplete="new-password"
             placeholder="Type your password"
           />
+          {errorName && <p style={{ color: "red" }}>{errorName}</p>}
+          {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
+          {loginError && <p style={{ color: "red" }}>{loginError}</p>}
+          {loginMessage && <p style={{ color: "green" }}>{loginMessage}</p>}
+          {errorAttempts && <p style={{ color: "red" }}>{errorAttempts}</p>}
         </CardContent>
         <CardFooter className="flex flex-row items-center justify-between gap-3">
           <Button

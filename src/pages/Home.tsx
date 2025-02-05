@@ -3,32 +3,44 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import { CloudSun, Search, Clock, Map } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import type React from "react";
 
 export default function Home() {
-  const [login, setLogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedUser") || "null");
-    if (user) {
-      setLogin(true);
-    }
+    setIsLoggedIn(!!user);
   }, []);
 
-  const handleButtonClick = () => {
-    if (login) {
+  const handleButtonClick = useCallback(() => {
+    if (isLoggedIn) {
       navigate("/home");
     } else {
       navigate("/login");
     }
-  };
+  }, [isLoggedIn, navigate]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        handleButtonClick();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleButtonClick]);
 
   return (
     <div className="min-h-screen bg-gray-200 p-8 flex items-center justify-center">
@@ -72,7 +84,7 @@ export default function Home() {
             className="bg-gray-500 hover:bg-gray-600 text-lg px-6 py-3"
             onClick={handleButtonClick}
           >
-            {login
+            {isLoggedIn
               ? "Start Exploring Weather"
               : "Login to start exploring weather"}
           </Button>

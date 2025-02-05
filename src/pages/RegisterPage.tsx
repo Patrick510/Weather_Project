@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function RegisterPage() {
@@ -15,6 +15,16 @@ export function RegisterPage() {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
+  const encodeBase64 = (text: string) => btoa(text);
+
+  useEffect(() => {
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const adminExists = users.some((user: any) => user.username === "admin");
+    if (!adminExists) {
+      users.push({ username: "admin", password: encodeBase64("admin") });
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+  }, []);
 
   const validatePassword = (password: string) => {
     const regex = /^(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
@@ -23,7 +33,7 @@ export function RegisterPage() {
 
   const handleRegister = () => {
     if (!username || !password) {
-      alert("Preencha todos os campos!");
+      setPasswordError("Preencha todos os campos!");
       return;
     }
 
@@ -46,7 +56,8 @@ export function RegisterPage() {
       return;
     }
 
-    const newUser = { username, password };
+    const encodedPassword = encodeBase64(password);
+    const newUser = { username, password: encodedPassword };
     localStorage.setItem("users", JSON.stringify([...existingUsers, newUser]));
 
     alert("Cadastro realizado com sucesso!");
@@ -59,6 +70,19 @@ export function RegisterPage() {
       setPasswordError("");
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        handleRegister();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleRegister]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
