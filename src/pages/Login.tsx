@@ -60,11 +60,6 @@ export function LoginPage() {
       return;
     }
 
-    if (password.length < 6) {
-      setPasswordError("A senha precisa ter pelo menos 6 caracteres.");
-      return;
-    }
-
     const users = JSON.parse(localStorage.getItem("users") || "[]");
 
     const user = users.find((user: any) => {
