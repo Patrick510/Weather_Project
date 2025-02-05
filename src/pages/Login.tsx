@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 export function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [passwordError] = useState("");
   const [errorName, setErrorName] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loginMessage, setLoginMessage] = useState("");
