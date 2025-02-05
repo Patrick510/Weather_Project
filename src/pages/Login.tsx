@@ -23,6 +23,16 @@ export function LoginPage() {
     (encodedText: string) => atob(encodedText),
     []
   );
+  const encodeBase64 = (text: string) => btoa(text);
+
+  useEffect(() => {
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const adminExists = users.some((user: any) => user.username === "admin");
+    if (!adminExists) {
+      users.push({ username: "admin", password: encodeBase64("admin") });
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+  }, []);
 
   const MAX_ATTEMPTS = 2;
   const BLOCK_TIME = 30 * 1000;
